@@ -6,7 +6,7 @@ import { User } from "../modules/users/entities/User";
 import { IFormatDataUser } from "./formatDataUser";
 
 export async function getDataTypeUser(user: User): Promise<IFormatDataUser> {
-  if (user.isEstablishment) {
+  if (user.is_establishment) {
     const getEstablishmentUseCase = container.resolve(GetEstablishmentUseCase);
 
     const data = await getEstablishmentUseCase.execute({
@@ -16,7 +16,7 @@ export async function getDataTypeUser(user: User): Promise<IFormatDataUser> {
     return data;
   }
 
-  if (!user.isAdmin) {
+  if (!user.is_admin) {
     const getClientUseCase = container.resolve(GetClientUseCase);
 
     const data = await getClientUseCase.execute({

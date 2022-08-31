@@ -22,7 +22,7 @@ class GetEstablishmentUseCase {
       throw new AppError(`Establishment not found.`, 400, "user.notFound");
     }
 
-    return formatDataUser(establishment.user, establishment);
+    return formatDataUser(establishment);
   }
 }
 

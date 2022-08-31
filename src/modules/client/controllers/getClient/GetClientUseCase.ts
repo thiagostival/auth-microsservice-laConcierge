@@ -22,7 +22,7 @@ class GetClientUseCase {
       throw new AppError(`Client not found.`, 400, "user.notFound");
     }
 
-    return formatDataUser(client.user, client);
+    return formatDataUser(client);
   }
 }
 

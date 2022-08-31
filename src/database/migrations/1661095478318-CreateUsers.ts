@@ -29,12 +29,12 @@ export class CreateUsers1661095478318 implements MigrationInterface {
             type: "varchar",
           },
           {
-            name: "isEstablishment",
+            name: "is_establishment",
             type: "boolean",
-            default: true,
+            default: false,
           },
           {
-            name: "isAdmin",
+            name: "is_admin",
             type: "boolean",
             default: false,
           },

@@ -15,7 +15,6 @@ class EstablishmentRepository implements IEstablishmentRepository {
   public async findById(id: string): Promise<Establishment | undefined> {
     const establishment = await this.ormRepository.findOne(id, {
       relations: ["user"],
-      select: ["cnpj", "user"],
     });
 
     return establishment;
@@ -32,12 +31,10 @@ class EstablishmentRepository implements IEstablishmentRepository {
         where: {
           id: Not(except_user_id),
         },
-        select: ["cnpj", "user"],
       });
     } else {
       establishment = await this.ormRepository.find({
         relations: ["user"],
-        select: ["cnpj", "user"],
       });
     }
 

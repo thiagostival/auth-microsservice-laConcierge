@@ -18,8 +18,8 @@ usersRoutes.post(
       email: Joi.string().email().required(),
       password: Joi.string().required(),
       tel: Joi.string(),
-      isEstablishment: Joi.boolean().default(false),
-      isAdmin: Joi.boolean().default(false),
+      is_establishment: Joi.boolean().default(false),
+      is_admin: Joi.boolean().default(false),
       cnpj: Joi.string().when("isEstablishment", {
         is: true,
         then: Joi.string().required().min(14).max(14),

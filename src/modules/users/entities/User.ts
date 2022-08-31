@@ -21,10 +21,10 @@ class User {
   tel: string;
 
   @Column()
-  isEstablishment: boolean;
+  is_establishment: boolean;
 
   @Column()
-  isAdmin: boolean;
+  is_admin: boolean;
 
   @CreateDateColumn()
   created_at: Date;
