@@ -30,9 +30,7 @@ class GetAllEstablishmentUseCase {
       throw new AppError("Establishments not found!", 400, "list.notFound");
     }
 
-    const formatedEstablishment = establishment.map((e) =>
-      formatDataUser(e.user, e)
-    );
+    const formatedEstablishment = establishment.map((e) => formatDataUser(e));
 
     return formatedEstablishment;
   }

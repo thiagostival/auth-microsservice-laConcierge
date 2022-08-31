@@ -120,8 +120,8 @@ CREATE TABLE public.users (
     email character varying NOT NULL,
     password character varying NOT NULL,
     tel character varying NOT NULL,
-    "isEstablishment" boolean DEFAULT true NOT NULL,
-    "isAdmin" boolean DEFAULT false NOT NULL,
+    is_establishment boolean DEFAULT true NOT NULL,
+    is_admin boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -194,7 +194,7 @@ COPY public.migrations (id, "timestamp", name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: laconcierge
 --
 
-COPY public.users (id, name, email, password, tel, "isEstablishment", "isAdmin", created_at) FROM stdin;
+COPY public.users (id, name, email, password, tel, is_establishment, is_admin, created_at) FROM stdin;
 d29b6883-8524-42f2-b1e3-4df370f01609	thiago	th@example.com	$2b$08$MNNFWOq0wLYyJdfeveIinONYW.iFxQzAhaytb48/qwowyxOVVHPKS	987654321	f	f	2022-08-22 00:01:33.403472
 544d9533-28fa-4b69-ba9d-d8e66059166d	Super Rango	rango@example.com	$2b$08$qyopffJqeyW8rShHKUeNT.L89B3hq.IXg6BWn/vcon03qt.xTn3Je	987654321	t	f	2022-08-22 00:02:22.408803
 \.

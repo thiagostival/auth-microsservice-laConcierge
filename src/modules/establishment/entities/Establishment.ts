@@ -17,6 +17,12 @@ class Establishment {
   @Column({ length: 14 })
   cnpj: string;
 
+  @Column()
+  max_capacity: number;
+
+  @Column()
+  busy_capacity: number;
+
   @OneToOne(() => User)
   @JoinColumn({ name: "id" })
   user: User;

@@ -14,7 +14,6 @@ class ClientRepository implements IClientRepository {
   public async findById(id: string): Promise<Client | undefined> {
     const client = await this.ormRepository.findOne(id, {
       relations: ["user"],
-      select: ["cpf", "birth_date", "user"],
     });
 
     return client;
