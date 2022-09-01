@@ -17,7 +17,7 @@ class GetAllEstablishmentController {
     );
 
     const allEstablishments = await getAllEstablishmentUseCase.execute({
-      except_user_id: user.isEstablishment ? user.id : undefined,
+      except_user_id: user.is_establishment ? user.id : undefined,
     });
 
     return response.json(allEstablishments);

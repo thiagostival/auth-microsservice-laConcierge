@@ -3,7 +3,7 @@ interface ICreateUserDTO {
   email: string;
   password: string;
   tel: string;
-  isEstablishment: boolean;
+  is_establishment: boolean;
 }
 
 export { ICreateUserDTO };
