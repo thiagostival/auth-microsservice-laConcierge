@@ -7,7 +7,7 @@ import { CreateUserUseCase } from "./CreateUserUseCase";
 
 class CreateUserController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { name, email, password, tel, isEstablishment } = request.body;
+    const { name, email, password, tel, is_establishment } = request.body;
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
 
@@ -16,10 +16,10 @@ class CreateUserController {
       email,
       password,
       tel,
-      isEstablishment,
+      is_establishment,
     });
 
-    if (!isEstablishment) {
+    if (!is_establishment) {
       const createClientController = new CreateClientController();
 
       await createClientController.handle(request, response, user.id);

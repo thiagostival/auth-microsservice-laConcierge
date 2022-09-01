@@ -20,15 +20,15 @@ usersRoutes.post(
       tel: Joi.string(),
       is_establishment: Joi.boolean().default(false),
       is_admin: Joi.boolean().default(false),
-      cnpj: Joi.string().when("isEstablishment", {
+      cnpj: Joi.string().when("is_establishment", {
         is: true,
         then: Joi.string().required().min(14).max(14),
       }),
-      cpf: Joi.string().when("isEstablishment", {
+      cpf: Joi.string().when("is_establishment", {
         is: false,
         then: Joi.string().required().min(11).max(11),
       }),
-      birth_date: Joi.string().when("isEstablishment", {
+      birth_date: Joi.string().when("is_establishment", {
         is: false,
         then: Joi.string().required(),
       }),
