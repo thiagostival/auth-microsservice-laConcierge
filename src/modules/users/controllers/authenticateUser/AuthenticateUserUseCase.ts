@@ -5,8 +5,8 @@ import { inject, injectable } from "tsyringe";
 
 import { auth } from "../../../../config/auth";
 import { AppError } from "../../../../errors/AppError";
-import { IFormatDataUser } from "../../../../middlewares/formatDataUser";
 import { getDataTypeUser } from "../../../../middlewares/getDataTypeUser";
+import { IUserResponseDTO } from "../../dtos/IUserResponseDTO";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
 import { IUsersTokenRepository } from "../../repositories/IUsersTokenRepository";
 
@@ -16,7 +16,7 @@ interface IRequest {
 }
 
 interface IResponse {
-  user: IFormatDataUser;
+  user: IUserResponseDTO;
   token: string;
   refresh_token: string;
 }
@@ -44,7 +44,7 @@ class AuthenticateUserUseCase {
     }
 
     const token = sign({}, auth.secret_token, {
-      subject: user.email,
+      subject: user.id,
       expiresIn: auth.expires_in_token,
     });
 

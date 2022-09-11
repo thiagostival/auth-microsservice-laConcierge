@@ -6,11 +6,11 @@ import { GetUserUseCase } from "./GetUserUseCase";
 
 class GetUserController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const email = request.user;
+    const { id } = request.user;
 
     const getUserUseCase = container.resolve(GetUserUseCase);
 
-    const user = await getUserUseCase.execute({ email });
+    const user = await getUserUseCase.execute(id);
 
     const getUser = await getDataTypeUser(user);
 

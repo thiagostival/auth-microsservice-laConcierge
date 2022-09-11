@@ -1,10 +1,8 @@
 import { injectable, inject } from "tsyringe";
 
 import { AppError } from "../../../../errors/AppError";
-import {
-  formatDataUser,
-  IFormatDataUser,
-} from "../../../../middlewares/formatDataUser";
+import { IUserResponseDTO } from "../../../users/dtos/IUserResponseDTO";
+import { UserMap } from "../../../users/mapper/UserMap";
 import { IEstablishmentRepository } from "../../repositories/IEstablishmentRepository";
 
 interface IRequest {
@@ -20,19 +18,17 @@ class GetAllEstablishmentUseCase {
 
   public async execute({
     except_user_id,
-  }: IRequest): Promise<IFormatDataUser[] | undefined> {
-    const establishment =
+  }: IRequest): Promise<IUserResponseDTO[] | undefined> {
+    const establishments =
       await this.establishmentRepository.findAllEstablishment({
         except_user_id,
       });
 
-    if (!establishment) {
+    if (!establishments) {
       throw new AppError("Establishments not found!", 400, "list.notFound");
     }
 
-    const formatedEstablishment = establishment.map((e) => formatDataUser(e));
-
-    return formatedEstablishment;
+    return establishments.map((e) => UserMap.toDTO(e));
   }
 }
 

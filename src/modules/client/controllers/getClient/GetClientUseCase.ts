@@ -1,12 +1,13 @@
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "../../../../errors/AppError";
-import {
-  formatDataUser,
-  IFormatDataUser,
-} from "../../../../middlewares/formatDataUser";
-import { IGetClientDTO } from "../../dtos/IGetClientDTO";
+import { IUserResponseDTO } from "../../../users/dtos/IUserResponseDTO";
+import { UserMap } from "../../../users/mapper/UserMap";
 import { IClientRepository } from "../../repositories/IClientRepository";
+
+interface IRequest {
+  id: string;
+}
 
 @injectable()
 class GetClientUseCase {
@@ -15,14 +16,14 @@ class GetClientUseCase {
     private clientRepository: IClientRepository
   ) {}
 
-  async execute({ id }: IGetClientDTO): Promise<IFormatDataUser> {
+  async execute({ id }: IRequest): Promise<IUserResponseDTO> {
     const client = await this.clientRepository.findById(id);
 
     if (!client) {
       throw new AppError(`Client not found.`, 400, "user.notFound");
     }
 
-    return formatDataUser(client);
+    return UserMap.toDTO(client);
   }
 }
 

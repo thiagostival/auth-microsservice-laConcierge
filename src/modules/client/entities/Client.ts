@@ -1,3 +1,4 @@
+import { Exclude, Type } from "class-transformer";
 import {
   Entity,
   Column,
@@ -11,6 +12,7 @@ import { User } from "../../users/entities/User";
 
 @Entity("client")
 class Client {
+  @Exclude()
   @PrimaryColumn()
   id: string;
 
@@ -20,10 +22,12 @@ class Client {
   @Column("time with time zone")
   birth_date: Date;
 
-  @OneToOne(() => User)
-  @JoinColumn({ name: "id" })
+  @OneToOne(() => User, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+  @JoinColumn({ name: "id", referencedColumnName: "id" })
+  @Type(() => User)
   user: User;
 
+  @Exclude()
   @CreateDateColumn()
   created_at: Date;
 }

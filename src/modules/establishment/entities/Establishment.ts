@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import {
   Entity,
   Column,
@@ -11,6 +12,7 @@ import { User } from "../../users/entities/User";
 
 @Entity("establishment")
 class Establishment {
+  @Exclude()
   @PrimaryColumn()
   id: string;
 
@@ -23,10 +25,11 @@ class Establishment {
   @Column()
   busy_capacity: number;
 
-  @OneToOne(() => User)
-  @JoinColumn({ name: "id" })
+  @OneToOne(() => User, { onDelete: "CASCADE", onUpdate: "CASCADE" })
+  @JoinColumn({ name: "id", referencedColumnName: "id" })
   user: User;
 
+  @Exclude()
   @CreateDateColumn()
   created_at: Date;
 }

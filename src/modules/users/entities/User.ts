@@ -1,4 +1,4 @@
-import { Exclude } from "class-transformer";
+import { Exclude, Expose } from "class-transformer";
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
@@ -26,8 +26,19 @@ class User {
   @Column()
   is_admin: boolean;
 
+  @Column()
+  avatar: string;
+
   @CreateDateColumn()
   created_at: Date;
+
+  @Expose({ name: "avatar_url" })
+  getAvatarUrl(): string | null {
+    if (!this.avatar) {
+      return null;
+    }
+    return `${process.env.APP_API_URL}/avatar/${this.avatar}`;
+  }
 
   constructor() {
     if (!this.id) {
