@@ -1,12 +1,13 @@
 import { inject, injectable } from "tsyringe";
 
 import { AppError } from "../../../../errors/AppError";
-import {
-  formatDataUser,
-  IFormatDataUser,
-} from "../../../../middlewares/formatDataUser";
-import { IGetEstablishmentDTO } from "../../dtos/IGetEstablishmentDTO";
+import { IUserResponseDTO } from "../../../users/dtos/IUserResponseDTO";
+import { UserMap } from "../../../users/mapper/UserMap";
 import { IEstablishmentRepository } from "../../repositories/IEstablishmentRepository";
+
+interface IRequest {
+  id: string;
+}
 
 @injectable()
 class GetEstablishmentUseCase {
@@ -15,14 +16,14 @@ class GetEstablishmentUseCase {
     private establishmentRepository: IEstablishmentRepository
   ) {}
 
-  async execute({ id }: IGetEstablishmentDTO): Promise<IFormatDataUser> {
+  async execute({ id }: IRequest): Promise<IUserResponseDTO> {
     const establishment = await this.establishmentRepository.findById(id);
 
     if (!establishment) {
       throw new AppError(`Establishment not found.`, 400, "user.notFound");
     }
 
-    return formatDataUser(establishment);
+    return UserMap.toDTO(establishment);
   }
 }
 

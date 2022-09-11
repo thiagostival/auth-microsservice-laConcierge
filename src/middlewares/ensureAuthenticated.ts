@@ -3,6 +3,7 @@ import { verify } from "jsonwebtoken";
 
 import { auth } from "../config/auth";
 import { AppError } from "../errors/AppError";
+import { UsersRepository } from "../modules/users/repositories/implementations/UsersRepository";
 
 interface IPayload {
   sub: string;
@@ -26,12 +27,22 @@ export async function ensureAuthenticated(
   }
 
   try {
-    const { sub: email } = verify(token, auth.secret_token) as IPayload;
+    const { sub: user_id } = verify(token, auth.secret_token) as IPayload;
 
-    request.user = email;
+    const usersRepository = new UsersRepository();
+    const user = await usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new AppError("User does not exists!", 401, "user.notExist");
+    }
+
+    request.user = {
+      id: user_id,
+      is_establishment: user.is_establishment,
+    };
 
     next();
-  } catch (error) {
+  } catch {
     throw new AppError("Token invalid.", 401, "token.expired");
   }
 }
