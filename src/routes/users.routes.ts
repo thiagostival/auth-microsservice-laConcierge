@@ -5,6 +5,7 @@ import multer from "multer";
 import uploadConfig from "../config/upload";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import { CreateUserController } from "../modules/users/controllers/createUser/CreateUserController";
+import { DeleteUserController } from "../modules/users/controllers/deleteUser/DeleteUserController";
 import { GetUserController } from "../modules/users/controllers/getUser/GetUserController";
 import { UpdateUserAvatarController } from "../modules/users/controllers/updateUserAvatar/UpdateUserAvatarController";
 
@@ -13,6 +14,7 @@ const uploadAvatar = multer(uploadConfig);
 
 const createUserController = new CreateUserController();
 const getUserController = new GetUserController();
+const deleteUserController = new DeleteUserController();
 const updateUserAvatarController = new UpdateUserAvatarController();
 
 usersRoutes.post(
@@ -50,5 +52,7 @@ usersRoutes.patch(
   uploadAvatar.single("avatar"),
   updateUserAvatarController.handle
 );
+
+usersRoutes.delete("/delete", ensureAuthenticated, deleteUserController.handle);
 
 export { usersRoutes };
