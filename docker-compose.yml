@@ -14,6 +14,9 @@ services:
       - POSTGRES_DB=la_concierge_auth
     volumes:
       - pgdata:/data/postgres
+    networks:
+      - network-laconcierge
+
   app:
     build: .
     container_name: la_concierge_auth
@@ -26,7 +29,13 @@ services:
       - database
     depends_on:
       - database
+    networks:
+      - network-laconcierge
 
 volumes:
   pgdata:
     driver: local
+
+networks:
+  network-laconcierge:
+    external: true
